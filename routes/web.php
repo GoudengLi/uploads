@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
@@ -7,8 +8,10 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Upload;
 use App\Models\User;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +47,12 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 
 Route::post('login',[SessionsController::class,'store'])->middleware('guest');
 
-Route::get('admin/posts/create',[PostController::class,'create'])->middleware('admin');
+Route::get('admin/posts/publish',[PostController::class,'create'])->middleware('admin');
+// Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+//     Route::get('admin/posts/publish', [PostController::class, 'create']);
+// });
+
+// Auth::routes(['verify' => true]);
 
 // Route::post('admin/posts',[PostController::class,'store'])->middleware('admin');
 
@@ -60,10 +68,11 @@ Route::get('index', function () {
         ]);
        
     });
-    Route::get('posts/{post:slug}', function (Post $post) {
-    return view('posts/show',[
-    'post'=>$post
-    ]);
+    Route::get('posts/{post:slug}', function (Post $post, Upload $uploads) {
+        return view('posts.show', [
+            'post' => $post,
+            'uploads' => $uploads
+        ]);
     });
     
     
@@ -78,3 +87,16 @@ Route::get('index', function () {
             'posts' =>$author->posts
         ]);
     });
+    
+   
+    Route::post('admin/posts',[AdminPostController::class,'store'])->middleware('admin');
+
+    Route::get('admin/posts',[AdminPostController::class,'index'])->middleware('admin');
+
+    Route::get('admin/posts/create',[AdminPostController::class,'index'])->middleware('admin');
+
+    Route::get('admin/posts/{post}/edit',[AdminPostController::class,'edit'])->middleware('admin');
+
+    Route::patch('admin/posts/{post}',[AdminPostController::class,'update'])->middleware('admin');
+
+    Route::delete('admin/posts/{post}',[AdminPostController::class,'destroy'])->middleware('admin');

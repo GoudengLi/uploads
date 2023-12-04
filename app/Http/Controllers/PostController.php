@@ -30,50 +30,50 @@ class PostController extends Controller
     }  
     public function create(){
     
-        return view('posts.create');
+        return view('admin.posts.create');
 
         }
 
-        public function store(Request $request){
+    //     public function store(Request $request){
         
-            $attributes=request()->validate([
-                'title'=>'required',
-                'slug'=>['required',Rule::unique('posts','slug')],
-                'excerpt'=>'required',
-                'body'=>'required',
-                'category_id'=>['required',Rule::exists('categories','id')]
-            ]);
+    //         $attributes=request()->validate([
+    //             'title'=>'required',
+    //             'slug'=>['required',Rule::unique('posts','slug')],
+    //             'excerpt'=>'required',
+    //             'body'=>'required',
+    //             'category_id'=>['required',Rule::exists('categories','id')]
+    //         ]);
 
-            $attributes['user_id']=auth()->id();
+    //         $attributes['user_id']=auth()->id();
 
 
 
-            Post::create($attributes);
+    //         Post::create($attributes);
 
             
-            if ($request->hasFile('upload') && $request->file('upload')->isValid()) {
-                $upload = new Upload();
+    //         if ($request->hasFile('upload') && $request->file('upload')->isValid()) {
+    //             $upload = new Upload();
         
-                // 获取 MIME 类型
-                $upload->mimeType = $request->file('upload')->getMimeType();
-                $upload->originalName = $request->file('upload')->getClientOriginalName();
-                $upload->path = $request->file('upload')->store('uploads');
-                $upload->save();
+    //             // 获取 MIME 类型
+    //             $upload->mimeType = $request->file('upload')->getMimeType();
+    //             $upload->originalName = $request->file('upload')->getClientOriginalName();
+    //             $upload->path = $request->file('upload')->store('uploads');
+    //             $upload->save();
         
-                // 如果文件上传成功，返回相关信息视图
-                return view('uploads.create', [
-                    'id' => $upload->id,
-                    'path' => $upload->path,
-                    'originalName' => $upload->originalName,
-                    'mimeType' => $upload->mimeType
-                ]);
-            }
+    //             // 如果文件上传成功，返回相关信息视图
+    //             return view('uploads.create', [
+    //                 'id' => $upload->id,
+    //                 'path' => $upload->path,
+    //                 'originalName' => $upload->originalName,
+    //                 'mimeType' => $upload->mimeType
+    //             ]);
+    //         }
 
-    return redirect('/');
+    // return redirect('/');
 
-            return redirect('/');
          
-        }
+        // }
+
 }
 
 ?>

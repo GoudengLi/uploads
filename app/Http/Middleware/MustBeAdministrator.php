@@ -17,7 +17,7 @@ class MustBeAdministrator
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(auth()->user()?->username!='uploader'){
+        if(auth()->user()?->id!='7'){
             abort(HttpFoundationResponse::HTTP_FORBIDDEN);
 
         }

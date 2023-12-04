@@ -54,7 +54,8 @@
 
 
     <nav>
-        <div>
+        <div style="position: relative">
+            <img src="/storage/img/UGum3i29TfHgCvedan3nVEikvqJxsdm7KMGR7k9J.jpg" alt="Website Logo" style="height: 45px; position:absolute">
             @auth
                 <span>Welcome, {{ auth()->user()->name }}!</span>
                 <form method="POST" action="/logout" style="display: inline-block;">
@@ -63,9 +64,13 @@
                         Log Out
                     </button>
                 </form>
-                  <a href="/admin/posts/create" class="subscribe-btn">Updates Todays' News</a>
+                @if(auth()->check() && auth()->user()->id == 7)
+    <a href="/admin/posts/publish" class="subscribe-btn">Updates Todays' News</a>
+    <a href="/admin/posts">edit posted news</a>
+                @endif
+                
             @else
-                <a href="/register">Register</a>
+                <a href="/register">Register</a> 
                 <a href="/login" style="margin-left: 10px;">Log In</a>
             @endauth
             <a href="/index" class="subscribe-btn">Posts</a>
@@ -78,17 +83,16 @@
     </section>
 
     <footer>
-        <h5>Stay in touch with the latest posts</h5>
-        <p>Promise to keep the inbox clean. No bugs.</p>
-
-        <form method="POST" action="#" style="display: flex; justify-content: center; align-items: center;">
-            <input type="text" placeholder="Your email address" style="padding: 8px; margin-right: 10px;">
+        <h5>Contact the Administrator for Assistance</h5>
+        <p>If you encounter any difficulties, feel free to reach out to us.</p>
+    
+        <form method="POST" action="mailto:1728713277@gmail.com" style="display: flex; justify-content: center; align-items: center;">
+            <input type="text" placeholder="type something here" style="padding: 8px; margin-right: 10px;">
             <button type="submit" style="background-color: #3490dc; color: #fff; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
-                Subscribe
+                Contact Administrator
             </button>
         </form>
     </footer>
-
     <x-flash />
 
 </body>
