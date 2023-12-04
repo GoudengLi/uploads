@@ -47,16 +47,15 @@
 
       <div class="mb-6">
         <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-        for="thumbnail">
+        for="image_url">
        Thumbnail
 
       </label>
 
-      <form method="POST" action='{{url("/uploads")}}' enctype="multipart/form-data">
         @csrf
-        <input type="file" name="upload">
-    </form>
-
+        <input type="file" name="image_url"  id="image_url"
+        >
+   
 
       <div class="mb-6">
         <label class="block mb-2 uppercase font-bold text-xs text-gray-700"

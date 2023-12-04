@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Upload;
 use App\Models\User;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -60,10 +61,11 @@ Route::get('index', function () {
         ]);
        
     });
-    Route::get('posts/{post:slug}', function (Post $post) {
-    return view('posts/show',[
-    'post'=>$post
-    ]);
+    Route::get('posts/{post:slug}', function (Post $post, Upload $uploads) {
+        return view('posts.show', [
+            'post' => $post,
+            'uploads' => $uploads
+        ]);
     });
     
     
