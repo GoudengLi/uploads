@@ -10,44 +10,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Post</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fff;
-            color: #000;
-            margin: 0;
-            padding: 0;
-        }
+   body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f0f4f8; 
+    color: #333; 
+    margin: 0;
+    padding: 0;
+}
 
-        header {
-            background-color: #000;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
+header {
+    background-color: #333; 
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
 
-        nav {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
+nav {
+    background-color: #718096; 
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    display: flex; 
+    justify-content: flex-start; 
+    gap: 10px; 
+}
 
-        nav a {
-            text-decoration: none;
-            color: #fff;
-            margin: 0 10px;
-        }
+nav a {
+    text-decoration: none;
+    color: #fff;
+    padding: 8px 12px; 
+    border-radius: 4px; 
+    background-color: #4a5568; 
+}
 
-        section {
-            padding: 20px;
-        }
+section {
+    padding: 20px;
+}
 
-        footer {
-            background-color: #000;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
+footer {
+    background-color: #718096; 
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
     </style>
 </head>
 <body>
@@ -55,7 +60,7 @@
 
     <nav>
         <div style="position: relative">
-            <img src="/storage/img/UGum3i29TfHgCvedan3nVEikvqJxsdm7KMGR7k9J.jpg" alt="Website Logo" style="height: 45px; position:absolute">
+          
             @auth
                 <span>Welcome, {{ auth()->user()->name }}!</span>
                 <form method="POST" action="/logout" style="display: inline-block;">
@@ -74,7 +79,6 @@
                 <a href="/login" style="margin-left: 10px;">Log In</a>
             @endauth
             <a href="/index" class="subscribe-btn">Posts</a>
-          
         </div>
     </nav>
 
@@ -82,16 +86,8 @@
         {{ $slot }}
     </section>
 
-    <footer>
-        <h5>Contact the Administrator for Assistance</h5>
-        <p>If you encounter any difficulties, feel free to reach out to us.</p>
-    
-        <form method="POST" action="mailto:1728713277@gmail.com" style="display: flex; justify-content: center; align-items: center;">
-            <input type="text" placeholder="type something here" style="padding: 8px; margin-right: 10px;">
-            <button type="submit" style="background-color: #3490dc; color: #fff; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
-                Contact Administrator
-            </button>
-        </form>
+    <footer style="background-color: #4a5568; color: #fff; padding: 20px; text-align: center;">
+        <p>&copy; 2024 Wenzhi Zhang. All rights reserved.</p>
     </footer>
     <x-flash />
 

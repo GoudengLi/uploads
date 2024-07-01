@@ -12,6 +12,8 @@ use App\Models\Upload;
 use App\Models\User;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AboutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,7 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 Route::post('login',[SessionsController::class,'store'])->middleware('guest');
 
 Route::get('admin/posts/publish',[PostController::class,'create'])->middleware('admin');
+
 // Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 //     Route::get('admin/posts/publish', [PostController::class, 'create']);
 // });
@@ -100,3 +103,9 @@ Route::get('index', function () {
     Route::patch('admin/posts/{post}',[AdminPostController::class,'update'])->middleware('admin');
 
     Route::delete('admin/posts/{post}',[AdminPostController::class,'destroy'])->middleware('admin');
+
+    Route::get('/search', [SearchController::class, 'index']);
+
+    Route::get('/about', [AboutController::class, 'showAboutPage'])->name('about');
+
+    // Route::post('/search', [SearchController::class, 'index'])->name('search.index');

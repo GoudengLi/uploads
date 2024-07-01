@@ -127,7 +127,6 @@ public function update(Post $post)
             $upload = new Upload();
            
         }
-
         $upload->mimeType = request()->file('image_url')->getMimeType();
         $upload->originalName = request()->file('image_url')->getClientOriginalName();
         $upload->path = $attributes['image_url'];
