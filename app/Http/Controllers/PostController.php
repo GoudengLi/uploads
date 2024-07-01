@@ -53,6 +53,7 @@ class PostController extends Controller
             
     //         if ($request->hasFile('upload') && $request->file('upload')->isValid()) {
     //             $upload = new Upload();
+<<<<<<< HEAD
         
     //             // 获取 MIME 类型
     //             $upload->mimeType = $request->file('upload')->getMimeType();
@@ -74,6 +75,95 @@ class PostController extends Controller
          
         // }
 
+=======
+        
+    //             // 获取 MIME 类型
+    //             $upload->mimeType = $request->file('upload')->getMimeType();
+    //             $upload->originalName = $request->file('upload')->getClientOriginalName();
+    //             $upload->path = $request->file('upload')->store('uploads');
+    //             $upload->save();
+        
+    //             // 如果文件上传成功，返回相关信息视图
+    //             return view('uploads.create', [
+    //                 'id' => $upload->id,
+    //                 'path' => $upload->path,
+    //                 'originalName' => $upload->originalName,
+    //                 'mimeType' => $upload->mimeType
+    //             ]);
+    //         }
+
+    // return redirect('/');
+
+         
+        // }
+        public function store()
+        {
+
+            
+            $attributes = request()->validate([
+                'title' => 'required',
+                'image_url' => 'image', 
+                'slug' => ['required', Rule::unique('posts', 'slug')],
+                'excerpt' => 'required',
+                'body' => 'required',
+                'category_id' => ['required', Rule::exists('categories', 'id')]
+            ]);
+        
+            $attributes['user_id'] = auth()->id();
+            if (request()->hasFile('image_url') && request()->file('image_url')->isValid()) {
+            $attributes['image_url'] = request()->file('image_url')->store('img');}
+            
+            Post::create($attributes);
+            // check update img
+            if (request()->hasFile('image_url') && request()->file('image_url')->isValid()) {
+                $upload = new Upload();
+        
+              
+                $upload->mimeType = request()->file('image_url')->getMimeType();
+                $upload->originalName = request()->file('image_url')->getClientOriginalName();
+                $upload->path =$attributes['image_url'];
+                $upload->save();
+        
+                // if success return view
+                return view('uploads.create', [
+                    'id' => $upload->id,
+                    'path' => $upload->path,
+                    'originalName' => $upload->originalName,
+                    'mimeType' => $upload->mimeType
+                ]);
+            }else{
+                return redirect('/');
+          
+            }
+        
+          
+        
+            
+            // try {
+            //     $attributes = request()->validate([
+            //         'title' => 'required',
+            //         'image_url' => 'required|image', 
+            //         'slug' => ['required', Rule::unique('posts', 'slug')],
+            //         'excerpt' => 'required',
+            //         'body' => 'required',
+            //         'category_id' => ['required', Rule::exists('categories', 'id')]
+            //     ]);
+            //     // dd($attributes);
+            // } catch (\Illuminate\Validation\ValidationException $e) {
+            //     $errors = $e->errors();
+            //     dd($attributes);
+            // }
+        
+            // $attributes['user_id'] = auth()->id();
+           
+            // $attributes['image_url'] = request()->file('image_url')->store('public/storage');
+        
+            // Post::create($attributes);
+        
+            // return redirect('/');
+
+        }
+>>>>>>> 1b6b05772ecf23153adb04a477218fe35139f0a4
 }
 
 ?>
